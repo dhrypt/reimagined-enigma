@@ -1,8 +1,10 @@
+import TimerProvider from "@/context/TimerContext";
 import { useFonts } from "expo-font";
-import { Slot, SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-// This will prevent the splash screen from auto hiding until loading all the font assets
+// this will prevent the flash screen from auto hiding until loading all the assets is complete
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -15,14 +17,27 @@ export default function RootLayout() {
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded, error]);
 
-  if (!fontsLoaded) return null;
-  if (!fontsLoaded && !error) return null;
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="meditate/[id]" options={{ headerShown: false }} />
-    </Stack>
+    <SafeAreaProvider>
+      <TimerProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="meditate/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(modal)/adjust-meditation-duration"
+            options={{ headerShown: false, presentation: "modal" }}
+          />
+        </Stack>
+      </TimerProvider>
+    </SafeAreaProvider>
   );
 }

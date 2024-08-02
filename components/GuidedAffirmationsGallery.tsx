@@ -1,16 +1,16 @@
-import { View, Text, FlatList, Pressable, Image } from "react-native";
-import React from "react";
-import { GalleryPreviewData } from "@/constants/models/AffirmationCategory";
+import { Image, View, Text, FlatList, Pressable } from "react-native";
+import images from "@/constants/affirmation-images";
+import { GalleryPreviewData, Product } from "@/constants/models/Product";
 import { Link } from "expo-router";
 
 interface GuidedAffirmationsGalleryProps {
   title: string;
-  previews: GalleryPreviewData[];
+  products: GalleryPreviewData[];
 }
 
 const GuidedAffirmationsGallery = ({
   title,
-  previews,
+  products,
 }: GuidedAffirmationsGalleryProps) => {
   return (
     <View className="my-5">
@@ -19,10 +19,10 @@ const GuidedAffirmationsGallery = ({
       </View>
       <View className="space-y-2">
         <FlatList
-          data={previews}
+          data={products}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <Link href={`/affirmations/${item.id}`} asChild>
               <Pressable>
                 <View className="h-36 w-32 rounded-md mr-4">
@@ -31,6 +31,7 @@ const GuidedAffirmationsGallery = ({
                     resizeMode="cover"
                     className="w-full h-full"
                   />
+                  <Text>ProductGallery</Text>
                 </View>
               </Pressable>
             </Link>

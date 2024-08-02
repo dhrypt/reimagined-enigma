@@ -1,10 +1,14 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import Colors from "@/constants/Colors";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import React from "react";
 
-const TabsLayout = () => {
+export const unstable_settings = {
+  // Ensure that reloading on `/modal` keeps a back button present.
+  initialRouteName: "(tabs)",
+};
+
+const Page = () => {
   return (
     <Tabs
       screenOptions={{
@@ -25,7 +29,6 @@ const TabsLayout = () => {
           ),
         }}
       />
-
       <Tabs.Screen
         name="affirmations"
         options={{
@@ -39,4 +42,4 @@ const TabsLayout = () => {
   );
 };
 
-export default TabsLayout;
+export default Page;
